@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Tweets;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -29,6 +30,16 @@ class SiteController extends Controller
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['add-tweet'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['add-tweet-time'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -94,5 +105,46 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * @return Action
+     */
+    public function actionAddTweet()
+    {
+        $tweet = new Tweets();
+
+        $post = Yii::$app->request->post("Tweets");
+        if(count($post))
+        {
+            $tweet->text = $post['text'];
+            $tweet->image = $post['image'];
+
+            if($tweet->save()) {
+                $tweet = new Tweets();
+            }
+        }
+
+        return $this->render('add-tweet', [
+            'tweet' => $tweet
+        ]);
+
+    }
+
+    public function actionAddTweetTime()
+    {
+        $tweet = new Tweets();
+
+        $tweet->text = (string)time();
+        $tweet->image = '';
+
+        if($tweet->save()) {
+            return $this->render('add-tweet-time', [
+                'tweet' => $tweet,
+                'msg' => 'Сообщение успешно добавлено'
+            ]);
+        }
+
+
     }
 }
