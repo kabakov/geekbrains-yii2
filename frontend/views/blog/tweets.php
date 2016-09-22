@@ -87,8 +87,18 @@ $this->title = "Tweechanckiy";
         </div>
         <nav>
             <ul class="pager">
-                <li><a class="withripple" href="#">Previous</a></li>
-                <li><a class="withripple" href="#">Next</a></li>
+                <?= \yii\widgets\LinkPager::widget([
+                    'pagination'=>$pagination,
+                    'firstPageCssClass'=>'DisplayNone',
+                    'lastPageCssClass'=>'DisplayNone',
+                    'nextPageCssClass'=>'withripple',
+                    'prevPageCssClass'=>'withripple',
+                    'maxButtonCount'=> null,
+                    'nextPageLabel'=>'Next',
+                    'prevPageLabel'=>'Previous',
+                ])?>
+
+
             </ul>
         </nav>
 

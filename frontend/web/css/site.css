@@ -95,6 +95,10 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+.DisplayNone {
+    display: none;
+}
+
 /* align the logout "link" (button in form) of the navbar */
 .nav > li > form {
     padding: 8px;

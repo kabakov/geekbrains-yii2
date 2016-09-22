@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\models\Tweets;
 use Yii;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -40,9 +41,21 @@ class BlogController extends Controller
      */
     public function actionIndex()
     {
-        $title = 'Кабаков Илья';
-        return $this->render('index', [
-            'caption' => $title
+        $query = Tweets::find();
+
+        $pagination = new Pagination([
+           'defaultPageSize' => 4,
+            'totalCount' => $query->count(),
+        ]);
+
+        $tweets = $query->orderBy('id')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('tweets', [
+            'tweets' => $tweets,
+            'pagination'=>$pagination,
         ]);
     }
 

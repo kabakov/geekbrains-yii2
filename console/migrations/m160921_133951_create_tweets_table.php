@@ -14,7 +14,7 @@ class m160921_133951_create_tweets_table extends Migration
     {
         $this->createTable('tweets', [
             'id' => $this->primaryKey(),
-            'text' => $this->text()->notNull()->defaultValue(''),
+            'text' => $this->text(),
             'image' => $this->string(255)->defaultValue(NULL),
         ]);
     }
