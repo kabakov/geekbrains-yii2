@@ -10,6 +10,8 @@ use Yii;
  * @property integer $id
  * @property string $text
  * @property string $image
+ * @property integer $id_user
+ * @property string $data_create
  */
 class Tweets extends \yii\db\ActiveRecord
 {
@@ -28,6 +30,9 @@ class Tweets extends \yii\db\ActiveRecord
     {
         return [
             [['text'], 'string'],
+            [['id_user'], 'required'],
+            [['id_user'], 'integer'],
+            [['data_create'], 'safe'],
             [['image'], 'string', 'max' => 255],
         ];
     }
@@ -41,6 +46,8 @@ class Tweets extends \yii\db\ActiveRecord
             'id' => 'ID',
             'text' => 'Text',
             'image' => 'Image',
+            'id_user' => 'Id User',
+            'data_create' => 'Data Create',
         ];
     }
 }
